@@ -4,3 +4,7 @@ pandas==1.4.2
 numpy==1.21.5
 matplotlib==3.5.1
 keras==2.11.0
+Jinja2==3.0.3
+itsdangerous==2.0.1
+werkzeug==2.0.3
+tensorflow==2.11.0
