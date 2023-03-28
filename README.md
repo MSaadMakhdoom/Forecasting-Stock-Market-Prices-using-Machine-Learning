@@ -6,4 +6,4 @@
 Forecasting Stock Market Prices using Machine Learning predict stock market prices based on historical data. Our goal is to help traders and investors make informed decisions about buying and selling stocks by providing reliable predictions.
 
 # Docker Container 
-<a href="https://github.com/Murad9288](https://hub.docker.com/r/saadmakhdoom/forecasting-stock-market-prices-using-machine-learning/tags" target="_blank">DockerHub </a>
+https://hub.docker.com/r/saadmakhdoom/forecasting-stock-market-prices-using-machine-learning/tags
