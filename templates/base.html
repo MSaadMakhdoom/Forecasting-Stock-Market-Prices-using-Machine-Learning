@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-argon">
+  
+  <title>
+    Forecasting StockMarket - {% block title %} Price {% endblock %} 
+  </title>
+
+  <!-- Favicon - loaded as static -->
+  <link rel="icon" href="/static/assets/img/brand/favicon.png" type="image/png">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Icons -->
+  <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css">
+  <link rel="stylesheet" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+
+  <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css">
+
+  <!-- Specific CSS goes HERE -->
+  {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+<body class="">
+
+  
+
+  <div class="main-content" id="panel">
+
+    {% include "includes/navigation.html" %}
+
+    {% block content %}{% endblock content %}
+
+  </div>
+
+  {% include "includes/scripts.html" %}
+
+
+  <div class="header bg-primary pb-6">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row align-items-center py-4">
+          <div class="col-lg-6 col-5 text-right">
+            <a href="#" class="btn btn-sm btn-neutral">New</a>
+            <a href="#" class="btn btn-sm btn-neutral">Filters</a>
+          </div>
+        </div>
+        <!-- Card stats -->
+        <div class="row">
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                     Actual Share Price
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{today['Close']}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class="icon icon-shape bg-gradient-red text-white rounded-circle shadow"
+                    >
+                      <i class="ni ni-active-40"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  {% if today['Percentage_Change_Price'] < 0 %}
+                    <span class="text-danger mr-2">
+                      <i class="fa fa-arrow-down"></i> {{today['Percentage_Change_Price']}}%
+                    </span>
+                    <span class="text-nowrap">Today</span>
+                    
+                  {% else %}
+                    <span class="text-success mr-2">
+                      <i class="fa fa-arrow-up"></i> {{today['Percentage_Change_Price']}}%
+                    </span>
+                    <span class="text-nowrap">Today</span>
+                  {% endif %}
+                </p>
+                
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Predict Share Price
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{ '{:.2f}'.format(forcast['Predictions'])}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow"
+                    >
+                      <i class="ni ni-chart-pie-35"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  <span class="text-success mr-2"
+                    ><i class="fa fa-arrow-up"></i> {{ '{:.1f}'.format((forcast['Predictions'] - today['Close']) / today['Close'] * 100) }}%</span
+                  >
+                  <span class="text-nowrap">Today</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Share Volume
+                    </h5>
+                    <span class="h2 font-weight-bold mb-0">{{today['Volume']}}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class="icon icon-shape bg-gradient-green text-white rounded-circle shadow"
+                    >
+                      <i class="ni ni-money-coins"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  {% if today['Percentage_Volume'] < 0 %}
+                    <span class="text-danger mr-2">
+                      <i class="fa fa-arrow-down"></i> {{-today['Percentage_Volume']}}%
+                     
+                    </span>
+                  {% else %}
+                    <span class="text-success mr-2">
+                      <i class="fa fa-arrow-up"></i> {{today['Percentage_Volume']}}%
+                    </span>
+                  {% endif %}
+                  <span class="text-nowrap">Today</span>
+                </p>
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6">
+            <div class="card card-stats">
+              <!-- Card body -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">
+                      Performance Share
+                    </h5>
+                   
+                    <span class="h2 font-weight-bold mb-0">{{ '{:.1f}'.format((today['High'] - today['Low']) / today['Open'] * 100) }} % Value</span>
+
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class="icon icon-shape bg-gradient-info text-white rounded-circle shadow"
+                    >
+                      <i class="ni ni-chart-bar-32"></i>
+                    </div>
+                  </div>
+                </div>
+                <p class="mt-3 mb-0 text-sm">
+                  
+                  <span class="text-nowrap"> Today</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content -->
+  <div class="container-fluid mt--6">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card bg-default">
+          <div class="card-header bg-transparent">
+            <div class="row align-items-center">
+              <div class="col">
+                <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
+                <h5 class="h3 text-white mb-0">Share Price</h5>
+              </div>
+              <div class="col">
+                <ul class="nav nav-pills justify-content-end">
+                  <li
+                    class="nav-item mr-2 mr-md-0"
+                    data-toggle="chart"
+                    data-target="#chart-sales-dark"
+                    data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}'
+                    data-prefix="$"
+                    data-suffix="k"
+                  >
+                    <a
+                      href="#"
+                      class="nav-link py-2 px-3 active"
+                      data-toggle="tab"
+                    >
+                      <span class="d-none d-md-block">Month</span>
+                      <span class="d-md-none">M</span>
+                    </a>
+                  </li>
+                  <li
+                    class="nav-item"
+                    data-toggle="chart"
+                    data-target="#chart-sales-dark"
+                    data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}'
+                    data-prefix="$"
+                    data-suffix="k"
+                  >
+                    <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
+                      <span class="d-none d-md-block">Week</span>
+                      <span class="d-md-none">W</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- Chart -->
+            <div class="chart">
+              <!-- Chart wrapper -->
+              <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Stock-Market Historical data</h3>
+              </div>
+              <div class="col text-right">
+                <a href="#!" class="btn btn-sm btn-primary">See all</a>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <!-- Projects table -->
+            <table id="myTable" class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Open</th>
+                  <th scope="col">High</th>
+                  <th scope="col">Low</th>
+                  <th scope="col">Close</th>
+                  <th scope="col">Volume</th>
+                  <th scope="col">Changes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in data | reverse %}
+                <tr>
+                  <th scope="row">{{ row['Date'] }}</th>
+                  <td>{{ row['Open'] }}</td>
+                  <td>{{ row['High'] }}</td>
+                  <td>{{ row['Low'] }}</td>
+                  <td>{{ row['Close'] }}</td>
+                  <td>{{ row['Volume'] }}</td>
+                  <td>
+                    {% if row['Percentage_Change_Price']|float >= 0 %}
+                    <i  class="fas fa-arrow-up text-success mr-3"></i> {{ row['Percentage_Change_Price'] }}
+                  {% else %}
+                    <i class="fas fa-arrow-down text-danger mr-3"></i> {{ row['Percentage_Change_Price'] }}
+                  {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+    
+  <style>
+    .paginate_button.previous, .paginate_button.next {
+      background-color: skyblue !important;
+      border: none !important;
+      padding: 0.5rem 0.5rem !important;
+    }
+  </style>
+  
+  <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').dataTable({
+        pageLength: 10,
+        searching: false,
+        ordering: false,
+        dom: '<"row"<"col-sm-6"l><"col-sm-6 text-right"f>>' +
+             '<"table-responsive"t>' +
+             '<"row"<"col-sm-6"i><"col-sm-6 text-right"p>>'
+      });
+    });
+
+
+    
+  </script>
+
+
+  
+
+  <script src="/static/assets/js/argon.js?v=1.2.0"></script>
+
+</body>
+
+</html>
