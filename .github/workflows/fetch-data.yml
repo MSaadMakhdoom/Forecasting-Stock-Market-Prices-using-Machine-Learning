@@ -9,24 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        pip install psx
+        pip install psx-data-reader
 
-      - name: Install dependencies
-        run: pip install psx
+    - name: Fetch PSX data
+      run: python fetch_psx_data.py
 
-      - name: Fetch PSX data
-        run: python scripts/psx_data.py
-
-      - name: Commit changes
-        run: |
-          git config --global user.name "Your Name"
-          git config --global user.email "your-email@example.com"
-          git add PSX.csv
-          git commit -m "Update PSX data"
-          git push origin main
+    - name: Commit changes
+      run: |
+        git config --global user.name "MSaadMakhdoom"
+        git config --global user.email "msaadmakhdoom@gmail.com"
+        git add PSX.csv
+        git commit -m "Update PSX data"
+        git push origin main
