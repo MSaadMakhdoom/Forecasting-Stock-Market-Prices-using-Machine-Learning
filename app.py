@@ -3,6 +3,8 @@ from tensorflow import keras
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
+
+
 app = Flask(__name__)
 
 model = keras.models.load_model('PSX_Model.h5')
@@ -69,6 +71,6 @@ def show_table():
     return render_template('base.html',data=data,today=last_row,forcast=today_forcasting)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
 
 
