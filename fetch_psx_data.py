@@ -32,6 +32,7 @@ def get_daily_data():
         
         end_date = datetime.date.today()
         start_date = end_date 
+        print("Start Date",start_date)
         data = stocks(["FFC"], start=start_date, end=end_date)
         
         print(data)
