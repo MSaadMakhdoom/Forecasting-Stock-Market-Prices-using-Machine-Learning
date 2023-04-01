@@ -29,17 +29,16 @@ def get_data():
 
 def get_daily_data():
     try:
-        
         end_date = datetime.date.today()
-        start_date = end_date 
-        print("Start Date",start_date)
+        start_date = end_date - datetime.timedelta(days=1)
+        print("Start Date:", start_date)
+        print("End Date:", end_date)
         data = stocks(["FFC"], start=start_date, end=end_date)
-        
         print(data)
         print("Data saved successfully!")
-        
     except:
-        print("Unable to get the data at the moment!")  
+        print("Unable to get the data at the moment!")
+
 
 
         
