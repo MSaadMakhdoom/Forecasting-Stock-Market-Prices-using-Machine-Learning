@@ -23,10 +23,16 @@ jobs:
     - name: Fetch PSX data
       run: python fetch_psx_data.py
 
-    - name: Commit changes
-      run: |
+   - name: Commit changes
+     run: |
         git config --global user.name "MSaadMakhdoom" || true
         git config --global user.email "msaadmakhdoom@gmail.com"
-        git add PSX.csv
-        git commit -m "Update PSX data"
-        git push origin main
+        if [[ $(git status PSX.csv) == *"Changes not staged for commit"* ]]; then
+          git add PSX.csv
+          git commit -m "Update PSX data"
+          git push origin main
+          echo "Changes committed and pushed successfully!"
+        else
+          echo "No changes to commit!"
+        fi
+
