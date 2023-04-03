@@ -23,8 +23,8 @@ jobs:
     - name: Fetch PSX data
       run: python fetch_psx_data.py
 
-   - name: Commit changes
-     run: |
+    - name: Commit changes
+      run: |
         git config --global user.name "MSaadMakhdoom" || true
         git config --global user.email "msaadmakhdoom@gmail.com"
         if [[ $(git status PSX.csv) == *"Changes not staged for commit"* ]]; then
@@ -35,4 +35,3 @@ jobs:
         else
           echo "No changes to commit!"
         fi
-
