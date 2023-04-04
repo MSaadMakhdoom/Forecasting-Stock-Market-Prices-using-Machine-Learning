@@ -34,6 +34,12 @@ def get_daily_data():
         print("Start Date:", start_date)
         print("End Date:", end_date)
         data = stocks(["FFC"], start=start_date, end=end_date)
+        
+        existing_data = pd.read_csv("PSX.csv")
+        updated_data = pd.concat([existing_data, data], ignore_index=True)
+
+        # Save the updated data to PSX.csv file
+        updated_data.to_csv("PSX.csv", index=False)
         print(data)
         print("Data saved successfully!")
     except:
