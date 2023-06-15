@@ -34,5 +34,9 @@ This project performs stock price prediction using machine learning techniques. 
 
 Overall, this code automates the stock price prediction process by handling data preprocessing, model training, evaluation, and experiment tracking using Airflow.
 
+# Airflow
+Task Definition: The code defines three tasks within the DAG: preprocess_data, train_model, and test_model. Each task represents a specific action to be performed. For example, the preprocess_data task reads and preprocesses the stock market data, the train_model task trains the machine learning model, and the test_model task evaluates the model's performance.
+
+Task Dependency: The code establishes dependencies between tasks using arrows (>>). This means that a task can only be executed once its preceding task(s) have completed successfully. In this case, the preprocess_data task must finish before the train_model task can start, and the train_model task must finish before the test_model task can start. This ensures that the tasks are executed in the correct order.
 # Docker Container 
 https://hub.docker.com/r/saadmakhdoom/forecasting-stock-market-prices-using-machine-learning/tags
