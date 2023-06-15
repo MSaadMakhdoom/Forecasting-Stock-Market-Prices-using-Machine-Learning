@@ -15,9 +15,6 @@ This project utilizes DVC (Data Version Control) for managing and versioning dat
 This project utilizes Apache Airflow to automate and orchestrate batch data processing tasks and model training.
 
 
-[![Forecasting Stock Market price application](https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/actions/workflows/main-app.yml/badge.svg)](https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/actions/workflows/main-app.yml)
-#
-[![Build Docker Image](https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/actions/workflows/docker.yml/badge.svg)](https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/actions/workflows/docker.yml)
 # Forecasting-Stock-Market-Prices-using-Machine-Learning
 
 Forecasting Stock Market Prices using Machine Learning predict stock market prices based on historical data.
