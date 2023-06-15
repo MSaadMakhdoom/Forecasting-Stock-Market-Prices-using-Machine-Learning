@@ -40,3 +40,186 @@ Task Definition: The code defines three tasks within the DAG: preprocess_data, t
 Task Dependency: The code establishes dependencies between tasks using arrows (>>). This means that a task can only be executed once its preceding task(s) have completed successfully. In this case, the preprocess_data task must finish before the train_model task can start, and the train_model task must finish before the test_model task can start. This ensures that the tasks are executed in the correct order.
 # Docker Container 
 https://hub.docker.com/r/saadmakhdoom/forecasting-stock-market-prices-using-machine-learning/tags
+
+
+
+
+
+# Setup Instructions
+
+## Virtual Environment
+
+Create a virtual environment:
+
+```
+python3 -m venv venv
+```
+
+Activate the virtual environment for Macbook:
+
+```
+source venv/bin/activate
+```
+
+Install the required packages from `requirements.txt`:
+
+```
+pip install -r requirements.txt
+```
+
+
+
+## flask Application Execution
+
+Start the flask application:
+
+```
+python app.py 
+```
+
+## DVC Setup
+
+Install DVC and the S3 bucket remote storage:
+
+```
+pip install dvc-s3
+```
+
+Set the DVC storage name:
+
+```
+dvc remote add -d img s3://projectmlops/
+```
+
+Add the dataset images to the remote folder:
+
+```
+dvc add ./img
+```
+
+Pull data from the S3 bucket:
+
+```
+aws configure
+dvc pull
+```
+
+Create and run the DVC pipeline:
+
+```
+dvc run -n model_train -d face_detection_model_svm.py -o confusion_matrix.png --no-exec python3 face_detection_model_svm.py
+dvc repro
+```
+
+
+
+## MLflow Setup
+
+
+
+MLflow installed:
+```
+pip install mlflow
+
+```
+
+Start the MLflow server:
+
+```
+mlflow server
+
+
+```
+
+MLflow UI 
+
+```
+http://127.0.0.1:5000/
+```
+
+* Once the MLflow server is running, open a new terminal window.
+* In the new terminal window, navigate to the directory where your MLflow project code is located.
+* Executeyour MLflow code by running the Python script:
+```
+python mlflow_main.py
+```
+
+
+* During the execution of  code, MLflow will track the parameters, metrics, and artifacts defined within your code and store them in the MLflow server.
+* After your code execution is complete, open your web browser and enter the URL provided by the MLflow server (e.g., http://127.0.0.1:5000/) to access the MLflow UI.
+
+
+## Airflow Setup
+
+Install Apache Airflow:
+
+```
+pip install apache-airflow
+
+pip install apache-airflow-providers-cncf-kubernetes
+```
+
+
+Airflow directory in current folder:
+
+```
+export AIRFLOW_HOME=.
+```
+
+Initialize the Airflow database:
+
+```
+airflow db init
+```
+
+```
+pwd
+```
+check path is correct in airflow.cfg
+
+
+Create an admin account:
+
+```
+airflow users create --username msaad --firstname Muhammad --lastname Saad --email msaadmakhdoom@gmail.com --role Admin --password 123456
+```
+
+Start the Airflow web server:
+
+```
+airflow webserver -p 8080
+```
+
+if show error when open airflow ui execute this command
+```
+airflow db reset
+```
+Start the Airflow  scheduler
+```
+airflow scheduler
+```
+
+create dag folder in 
+
+
+
+
+
+Find the PID of the Webserver and Scheduler
+```
+ps aux | grep airflow
+
+```
+```
+kill -9 <PID>
+
+```
+Check the scheduler status:
+```
+ps -ef | grep "airflow scheduler"
+```
+
+ check the details of a process:
+ ```
+ ps -p 8739
+```

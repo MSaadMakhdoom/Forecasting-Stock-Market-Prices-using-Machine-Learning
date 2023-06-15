@@ -1,0 +1,5 @@
+outs:
+- md5: 1e7ce8afe76c230fa978b6ffef3d4e82
+  size: 270324
+  hash: md5
+  path: PSX.csv

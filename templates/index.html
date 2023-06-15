@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/static/assets/img/favicon.png">
+  <title>
+    Forecasting Stock Market  Dashboard 
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="/static/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/static/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="/static/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/static/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+
+
+  <style>
+    .paginate_button.previous, .paginate_button.next {
+      background-color: skyblue !important;
+      border: none !important;
+      padding: 0.5rem 0.5rem !important;
+    }
+  </style>
+  
+  <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').dataTable({
+        pageLength: 10,
+        searching: false,
+        ordering: false,
+        dom: '<"row"<"col-sm-6"l><"col-sm-6 text-right"f>>' +
+             '<"table-responsive"t>' +
+             '<"row"<"col-sm-6"i><"col-sm-6 text-right"p>>'
+      });
+    });
+
+
+    
+  </script>
+
+
+  
+
+
+</head>
+
+<body class="g-sidenav-show   bg-gray-100">
+  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+ 
+  <main class="main-content position-relative border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+
+          <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+        </nav>
+       
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Actual Share Price</p>
+                   
+                    <h5 class="font-weight-bolder">
+                      {{today['Close']}}
+                    </h5>
+                    <p class="mb-0">
+                     
+                      {% if today['Percentage_Change_Price'] < 0 %}
+                      <span class="text-danger mr-2">
+                        <i class="fa fa-arrow-down"></i> {{today['Percentage_Change_Price']}}%
+                      </span>
+                      <span class="text-nowrap">Today</span>
+                      
+                    {% else %}
+                      <span class="text-success mr-2">
+                        <i class="fa fa-arrow-up"></i> {{today['Percentage_Change_Price']}}%
+                      </span>
+                      <span class="text-nowrap">Today</span>
+                    {% endif %}
+                     
+                    </p>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Predict Share Price</p>
+                    <h5 class="font-weight-bolder">
+                      {{ '{:.2f}'.format(forcast['Predictions'])}}
+                    </h5>
+                    <p class="mb-0">
+                      <span class="text-success text-sm font-weight-bolder">{{ '{:.1f}'.format((forcast['Predictions'] - today['Close']) / today['Close'] * 100) }}%</span>
+                      Today
+                    </p>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Company Share Volume</p>
+                    <h5 class="font-weight-bolder">
+                      {{today['Volume']}}
+                    </h5>
+                    <p class="mb-0">
+                      {% if today['Percentage_Volume'] < 0 %}
+                    <span class="text-danger mr-2">
+                      <i class="fa fa-arrow-down"></i> {{-today['Percentage_Volume']}}%
+                     
+                    </span>
+                  {% else %}
+                    <span class="text-success mr-2">
+                      <i class="fa fa-arrow-up"></i> {{today['Percentage_Volume']}}%
+                    </span>
+                  {% endif %}
+                      Weekly Change
+                    </p>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Company Performance Share</p>
+                    <h5 class="font-weight-bolder">
+                      {{ '{:.1f}'.format((today['High'] - today['Low']) / today['Open'] * 100) }}
+                    </h5>
+                    <p class="mb-0">
+                      <span class="text-success text-sm font-weight-bolder">+5%</span> Dialy
+                    </p>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- Graph stats -->
+      <div class="row mt-4">
+        <div class="col-lg-7 mb-lg-0 mb-4">
+          <div class="card z-index-2 h-100">
+            <div class="card-header pb-0 pt-3 bg-transparent">
+              <h6 class="text-capitalize">Sales overview</h6>
+              <p class="text-sm mb-0">
+                <i class="fa fa-arrow-up text-success"></i>
+                <span class="font-weight-bold">4% more</span> in 2021
+              </p>
+            </div>
+            <div class="card-body p-3">
+              <div class="chart">
+                <canvas id="chart-line" class="chart-canvas" height="300"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+
+        <!-- Table overview stats -->
+
+      <div class="row mt-4">
+        <div class="col-lg-7 mb-lg-0 mb-4">
+          <div class="card ">
+            <div class="card-header pb-0 p-3">
+              <div class="d-flex justify-content-between">
+                <h6 class="mb-2">Company Share History</h6>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table id="myTable" class="table align-items-center ">
+               
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">Open</th>
+                      <th scope="col">High</th>
+                      <th scope="col">Low</th>
+                      <th scope="col">Close</th>
+                      <th scope="col">Volume</th>
+                      <th scope="col">Changes</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {% for row in data | reverse %}
+                    <tr>
+                      <th scope="row">{{ row['Date'] }}</th>
+                      <td>{{ row['Open'] }}</td>
+                      <td>{{ row['High'] }}</td>
+                      <td>{{ row['Low'] }}</td>
+                      <td>{{ row['Close'] }}</td>
+                      <td>{{ row['Volume'] }}</td>
+                      <td>
+                        {% if row['Percentage_Change_Price']|float >= 0 %}
+                        <i  class="fas fa-arrow-up text-success mr-3"></i> {{ row['Percentage_Change_Price'] }}
+                      {% else %}
+                        <i class="fas fa-arrow-down text-danger mr-3"></i> {{ row['Percentage_Change_Price'] }}
+                      {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+
+               
+               
+              </table>
+            </div>
+          </div>
+        </div>
+ 
+      </div>
+      <footer class="footer pt-3  ">
+        
+      </footer>
+    </div>
+  </main>
+
+ 
+
+
+  <!--   Core JS Files   -->
+  <script src="/static/assets/js/core/popper.min.js"></script>
+  <script src="/static/assets/js/core/bootstrap.min.js"></script>
+  <script src="/static/assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="/static/assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="/static/assets/js/plugins/chartjs.min.js"></script>
+  <script>
+    var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+    new Chart(ctx1, {
+      type: "line",
+      data: {
+        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+          label: "Mobile apps",
+          tension: 0.4,
+          borderWidth: 0,
+          pointRadius: 0,
+          borderColor: "#5e72e4",
+          backgroundColor: gradientStroke1,
+          borderWidth: 3,
+          fill: true,
+          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+          maxBarThickness: 6
+
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#fbfbfb',
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#ccc',
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+  </script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="/static/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+</body>
+
+</html>

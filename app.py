@@ -68,9 +68,12 @@ def show_table():
         data = [row.to_dict() for _, row in df.iterrows()]
         data = [{k: str(v) for k, v in row.items()} for row in data]
 
-    return render_template('base.html',data=data,today=last_row,forcast=today_forcasting)
+    return render_template('index.html',data=data,today=last_row,forcast=today_forcasting)
+
+    # return render_template('base.html',data=data,today=last_row,forcast=today_forcasting)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=8000)
+
 
 
