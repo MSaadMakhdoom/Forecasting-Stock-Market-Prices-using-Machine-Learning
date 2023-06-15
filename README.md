@@ -20,7 +20,19 @@ This project utilizes Apache Airflow to automate and orchestrate batch data proc
 [![Build Docker Image](https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/actions/workflows/docker.yml/badge.svg)](https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/actions/workflows/docker.yml)
 # Forecasting-Stock-Market-Prices-using-Machine-Learning
 
-Forecasting Stock Market Prices using Machine Learning predict stock market prices based on historical data. Our goal is to help traders and investors make informed decisions about buying and selling stocks by providing reliable predictions.Fetch daily basis and predict the model
+Forecasting Stock Market Prices using Machine Learning predict stock market prices based on historical data.
+
+This project performs stock price prediction using machine learning techniques. It uses a dataset containing historical stock market data and trains a model to make predictions on future stock prices.
+
+1. Data Preprocessing: The code reads the stock market data from a file and prepares it for training. It removes unnecessary information and scales the data to a specific range that the model can work with. This step ensures that the data is in a suitable format for training the model.
+
+2. Model Training: Once the data is preprocessed, the code trains a machine learning model called LSTM (Long Short-Term Memory). LSTM is a type of neural network that can analyze sequential data, such as stock prices over time. The model is trained using the preprocessed data, and its parameters are optimized to make accurate predictions. The training process involves running the data through the model multiple times and adjusting the model's internal settings to minimize prediction errors.
+
+3. Model Evaluation: After training, the code evaluates the trained model's performance by testing it on unseen data. It takes a portion of the preprocessed data that was not used for training and feeds it into the model to make predictions on future stock prices. The predictions are compared to the actual stock prices to measure how well the model performs. The evaluation metric used is called Root Mean Squared Error (RMSE), which quantifies the average difference between predicted and actual stock prices.
+
+4. MLflow Integration: The code integrates with MLflow, a machine learning lifecycle management platform. It uses MLflow to log important information during the training and evaluation processes. This includes parameters used in training, metrics like loss and RMSE, and even the trained model itself. MLflow provides a centralized platform to track and manage the experiments, making it easier to reproduce and compare different models.
+
+Overall, this code automates the stock price prediction process by handling data preprocessing, model training, evaluation, and experiment tracking using Airflow.
 
 # Docker Container 
 https://hub.docker.com/r/saadmakhdoom/forecasting-stock-market-prices-using-machine-learning/tags
