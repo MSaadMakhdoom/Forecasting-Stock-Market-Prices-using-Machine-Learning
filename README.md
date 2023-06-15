@@ -45,6 +45,9 @@ https://hub.docker.com/r/saadmakhdoom/forecasting-stock-market-prices-using-mach
 [![Video](https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/assets/62068377/88db335c-94c9-46f3-bc6f-a598ce9bb4e7)
 
 
+https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/assets/62068377/88db335c-94c9-46f3-bc6f-a598ce9bb4e7
+
+
 
 # Setup Instructions
 
