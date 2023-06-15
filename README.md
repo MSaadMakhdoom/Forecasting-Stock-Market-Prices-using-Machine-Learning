@@ -42,8 +42,6 @@ Task Dependency: The code establishes dependencies between tasks using arrows (>
 https://hub.docker.com/r/saadmakhdoom/forecasting-stock-market-prices-using-machine-learning/tags
 
 # Demo video
-[![Video](https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/assets/62068377/88db335c-94c9-46f3-bc6f-a598ce9bb4e7)
-
 
 https://github.com/MSaadMakhdoom/Forecasting-Stock-Market-Prices-using-Machine-Learning/assets/62068377/88db335c-94c9-46f3-bc6f-a598ce9bb4e7
 
